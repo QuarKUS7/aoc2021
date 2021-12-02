@@ -1,4 +1,4 @@
-f = open('./1_input.txt', 'r')
+f = open('./input.txt', 'r')
 
 raw_input = f.read().splitlines()
 raw_input = [int(i) for i in raw_input]

@@ -18,26 +18,26 @@ graph['end'] = []
 small_caves = [key for key in graph.keys() if (key.islower() and key not in ('start', 'end') )]
 
 paths = []
-def DFS(graph, visited, start, end, small_caves, allow_double, doubled):
+def find_paths(graph, visited, start, end, small_caves, allow_double, doubled):
     visited.append(start)
     if start in small_caves:
         small_caves.remove(start)
     for next in graph[start]:
         if next in small_caves or next.isupper() or next == 'end':
-            DFS(graph, visited.copy(), next, end, small_caves.copy(), allow_double, doubled)
+            find_paths(graph, visited.copy(), next, end, small_caves.copy(), allow_double, doubled)
         if allow_double:
             if next not in small_caves and next in reference and doubled == False:
-                DFS(graph, visited.copy(), next, end, small_caves.copy(), allow_double, True)
+                find_paths(graph, visited.copy(), next, end, small_caves.copy(), allow_double, True)
     if start == end:
         paths.append(visited)
 
-DFS(graph, [], 'start', 'end', small_caves, False, False)
+find_paths(graph, [], 'start', 'end', small_caves, False, False)
 
 print(f'Prva cast vysledok: {len(paths)}')
 
 reference = [key for key in graph.keys() if (key.islower() and key not in ('start', 'end') )]
 paths = []
 
-DFS(graph, [], 'start', 'end', small_caves, True, False)
+find_paths(graph, [], 'start', 'end', small_caves, True, False)
 
 print(f'Druha cast vysledok: {len(paths)}')
